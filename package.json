@@ -39,5 +39,17 @@
     "> 1%",
     "last 2 versions",
     "not dead"
-  ]
+  ],
+  "description": "## Project setup ``` npm install ```",
+  "main": "babel.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jtagliaferro74/cheechies-kitchen.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jtagliaferro74/cheechies-kitchen/issues"
+  },
+  "homepage": "https://github.com/jtagliaferro74/cheechies-kitchen#readme"
 }

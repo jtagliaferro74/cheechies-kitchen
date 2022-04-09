@@ -1,9 +1,11 @@
 <template>
+<transition name="fade" appear>
+
 	<div
 		:class="[
 			'card',
 			{
-				'card--takeout': meal.takeout,
+				'card--takeout': meal.takeout
 			},
 		]"
 	>
@@ -41,7 +43,11 @@
 				</button>
 			</div>
 		</div>
-		<p>{{ meal.text }}</p>
+		<transition name="slide-fade" mode="out-in">
+			<p :key="meal.text">
+				{{ meal.text }}
+			</p>
+		</transition>
 		<div class="btn-container">
 			<button class="btn-icon btn-icon--edit" @click="$emit('clickEdit')" title="Edit Meal">
 				<Icon icon="fa6-solid:pencil" :width="iconSize" />
@@ -56,6 +62,7 @@
 			</button>
 		</div>
 	</div>
+</transition>
 </template>
 
 <script>
@@ -69,6 +76,9 @@
 			meal: {
 				required: true,
 			},
+			delay:{
+				type: Number
+			}
 		},
 		data() {
 			return {
@@ -96,11 +106,15 @@
 		margin-bottom: 16px;
 		border-radius: 8px;
 		box-shadow: 8px 8px 0 0 rgba(0, 48, 77, 0.05);
+		box-sizing: border-box;
 		transition: all 0.2s ease;
 	}
 
 	.card--takeout {
-		background-color: rgb(254, 255, 212);
+		/* background-color: rgb(254, 255, 212); */
+		border: 3px solid #ffb039;
+		/* transition: none; */
+		transition: all 0.2s ease;
 	}
 
 	.card:hover {
@@ -184,6 +198,28 @@
 		color: #fff;
 		transform: scale(1.2);
 	}
+
+	.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+  transform: scale(0);
+}
+
+.slide-fade-enter-active {
+  transition: all .3s ease;
+}
+.slide-fade-leave-active {
+  transition: all .3s ease;
+}
+.slide-fade-enter-from, .slide-fade-leave-to {
+  transform: translateX(20px);
+  opacity: 0;
+}
 
 	@media only screen and (max-width: 768px) {
 		.btn-icon svg {

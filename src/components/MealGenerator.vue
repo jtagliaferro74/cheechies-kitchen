@@ -18,6 +18,7 @@
 					@click-lock="meal.locked = !meal.locked"
 					@click-takeout="meal.takeout = !meal.takeout"
 					@click-change="meal.text = randomMeal(meal)"
+					
 				/>
 			</div>
 		</div>
@@ -84,7 +85,11 @@
 				],
 			};
 		},
-
+		computed:{
+			cardDelay: function(index){
+				return `transition-delay: ${0.2*index}s`
+			}
+		},
 		methods: {
 			randomMeal(meal) {
 				if (meal.locked) {
