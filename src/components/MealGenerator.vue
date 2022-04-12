@@ -9,6 +9,7 @@
 					aggravating for Cheechie. Help her out.
 				</p>
 				<button class="btn--primary" @click="randomizeAllMeals">Get Dinners</button>
+				<button class="btn--share" @click="share">Share</button>
 			</div>
 			<div class="column">
 				<MealCard
@@ -18,7 +19,9 @@
 					@click-lock="meal.locked = !meal.locked"
 					@click-takeout="meal.takeout = !meal.takeout"
 					@click-change="meal.text = randomMeal(meal)"
-					
+					@click-edit="clickEdit(meal)"
+					@click-save="clickSave($event, meal)"
+					@click-cancel="clickCancel(meal)"
 				/>
 			</div>
 		</div>
@@ -35,6 +38,7 @@
 			Header,
 			MealCard,
 		},
+
 		data() {
 			return {
 				dinners: dinners,
@@ -42,53 +46,63 @@
 				meals: [
 					{
 						day: "Monday",
-						text: "Chicken Noodle Soup",
+						text: "",
 						takeout: false,
 						locked: false,
+						editing: false,
 					},
 					{
 						day: "Tuesday",
-						text: "Tacos",
+						text: "",
 						takeout: false,
 						locked: false,
+						editing: false,
 					},
 					{
 						day: "Wednesday",
-						text: "Chicken Cutlets",
+						text: "",
 						takeout: false,
 						locked: false,
+						editing: false,
 					},
 					{
 						day: "Thursday",
-						text: "Cheeseburgers",
+						text: "",
 						takeout: false,
 						locked: false,
+						editing: false,
 					},
 					{
 						day: "Friday",
-						text: "Pizza",
+						text: "",
 						takeout: false,
 						locked: false,
+						editing: false,
 					},
 					{
 						day: "Saturday",
-						text: "Chinese",
+						text: "",
 						takeout: false,
 						locked: false,
+						editing: false,
 					},
 					{
 						day: "Sunday",
-						text: "Penne",
+						text: "",
 						takeout: false,
 						locked: false,
+						editing: false,
 					},
 				],
 			};
 		},
-		computed:{
-			cardDelay: function(index){
-				return `transition-delay: ${0.2*index}s`
-			}
+		computed: {
+			cardDelay: function (index) {
+				return `transition-delay: ${0.2 * index}s`;
+			},
+		},
+		created() {
+			this.randomizeAllMeals();
 		},
 		methods: {
 			randomMeal(meal) {
@@ -133,6 +147,31 @@
 				}
 				return randMeal;
 			},
+			clickSave($event, meal) {
+				meal.text = $event;
+				meal.editing = false;
+			},
+			clickEdit(meal) {
+				meal.editing = !meal.editing;
+			},
+			clickCancel(meal) {
+				meal.editing = false;
+			},
+			share() {
+				// add header to string for game summary
+
+				let str = `This week, Cheechie was thinking...\n\n`;
+
+				// add game summary to string
+				this.meals.forEach((meal) => {
+					str += meal.text + "\n";
+				});
+
+				// copy game summary string to clipboard, for easy copy and paste
+				navigator.clipboard.writeText(str);
+				this.$toast.show(`Copied to Clipboard`, { duration: 2000 });
+			},
+
 			// Curently unused...
 			// shuffle(array) {
 			// 	for (let i = array.length - 1; i > 0; i--) {
@@ -189,7 +228,8 @@
 		cursor: pointer;
 		background-color: #00a2fd;
 		color: white;
-		border: none;
+		/* border: none; */
+		border: 2px solid #00a2fd;
 		border-radius: 4px;
 		font-size: 24px;
 		font-weight: 700;
@@ -197,12 +237,33 @@
 		padding: 8px 24px;
 		transition: all 0.2s ease;
 	}
+	.btn--share {
+		display: block;
+		margin: 1em 0;
+		font-family: "Poppins", sans-serif;
+		cursor: pointer;
+		background-color: transparent;
+		color: #00a2fd;
+		border: 2px solid #00a2fd;
+		border-radius: 4px;
+		font-size: 18px;
+		font-weight: 700;
+		/* box-shadow: 8px 8px 0 0 rgba(0, 48, 77, 0.05); */
+		padding: 8px 24px;
+		transition: all 0.2s ease;
+	}
 
 	.btn--primary:hover {
+		border: 2px solid #0098f0;
 		background-color: #0098f0;
 		transform: translateX(4px) translateY(4px);
 		box-shadow: none;
 	}
+
+	.btn--share:hover {
+		background-color: rgba(0, 152, 240, 0.1);
+	}
+
 	.column {
 		width: 100%;
 	}
@@ -234,7 +295,7 @@
 		.p-body {
 			text-align: center;
 		}
-
+		.btn--share,
 		.btn--primary {
 			width: 100%;
 			box-shadow: none;

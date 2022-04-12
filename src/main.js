@@ -1,4 +1,9 @@
-import { createApp } from 'vue'
-import App from './App.vue'
+import { createApp } from "vue";
+import App from "./App.vue";
+import Toaster from "@meforma/vue-toaster";
 
-createApp(App).mount('#app')
+createApp(App)
+	.use(Toaster, {
+		position: "top",
+	})
+	.mount("#app");
