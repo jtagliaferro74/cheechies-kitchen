@@ -106,7 +106,6 @@
 			return {
 				iconSize: 16,
 				inputValue: this.meal.text,
-				// editing: false,
 			};
 		},
 		computed: {
@@ -123,11 +122,11 @@
 					// focus input
 					this.$nextTick(() => {
 						this.$refs.inputBox.focus();
-						console.log();
 					});
 				}
 			},
 			clickSave(input) {
+				// reset text if input is empty
 				if (input === "") {
 					input = this.meal.text;
 				}
@@ -153,15 +152,12 @@
 		margin-bottom: 16px;
 		border-radius: 8px;
 		box-shadow: 8px 8px 0 0 rgba(0, 48, 77, 0.05);
-		/* box-sizing: border-box; */
 		transition: all 0.2s ease;
 		word-wrap: break-word;
 	}
 
 	.card--takeout {
-		/* background-color: rgb(254, 255, 212); */
 		border: 3px solid #ffb039;
-		/* transition: none; */
 		transition: all 0.2s ease;
 	}
 
@@ -190,7 +186,6 @@
 		margin: 0;
 	}
 	.btn-container {
-		/* margin-top: 1em; */
 		display: flex;
 		justify-content: flex-end;
 	}
@@ -203,9 +198,7 @@
 		border: none;
 		background-color: transparent;
 		border-radius: 4px;
-		/* height: 28px;
-		width: 28px; */
-		transition: 0.2s ease;
+		transition: all 0.2s ease;
 		color: rgb(199, 199, 199);
 		display: flex;
 		align-items: center;
@@ -216,7 +209,6 @@
 	.btn--save {
 		margin-top: 0.5em;
 		margin-right: 0.5em;
-		background-color: #0098f0;
 		background-color: #00a2fd;
 		color: white;
 		border-radius: 3px;
@@ -233,7 +225,6 @@
 		margin-top: 0.5em;
 		margin-right: 0.5em;
 		background-color: transparent;
-		color: #0098f0;
 		color: #00a2fd;
 		border-radius: 3px;
 		padding: 2px 12px;
@@ -252,7 +243,6 @@
 
 	.btn-icon--tag--active {
 		color: #ffb039;
-		/* padding: 4px; */
 	}
 	.btn-icon--tag:hover {
 		background-color: #ffb039;

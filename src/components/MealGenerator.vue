@@ -106,6 +106,7 @@
 		},
 		methods: {
 			randomMeal(meal) {
+				// change an individual meal unless its locked.
 				if (meal.locked) {
 					return meal.text;
 				} else {
@@ -117,13 +118,13 @@
 				}
 			},
 			randomizeAllMeals() {
+				// generate a random meal for every day of the week
 				this.meals.forEach((meal) => {
 					if (!meal.locked) {
 						if (meal.takeout) {
-							console.log(meal.text);
+							// choose meal from takeout menu
 							meal.text = this.getRandomMeal(takeouts);
 						} else {
-							console.log(meal.text);
 							meal.text = this.getRandomMeal(dinners);
 						}
 					}
@@ -131,7 +132,6 @@
 			},
 			getRandomMeal(choices) {
 				let randMeal = choices[Math.floor(Math.random() * choices.length)];
-				console.log(randMeal);
 				// if meal is already in our list
 				if (this.meals.some((m) => m.text === randMeal)) {
 					// try to randomize again (max of 3 times)
@@ -148,6 +148,7 @@
 				return randMeal;
 			},
 			clickSave($event, meal) {
+				// save meal using input text
 				meal.text = $event;
 				meal.editing = false;
 			},
@@ -158,32 +159,15 @@
 				meal.editing = false;
 			},
 			share() {
-				// add header to string for game summary
-
 				let str = `This week, Cheechie was thinking...\n\n`;
-
-				// add game summary to string
 				this.meals.forEach((meal) => {
 					str += meal.text + "\n";
 				});
 
-				// copy game summary string to clipboard, for easy copy and paste
+				// copy summary string to clipboard, for easy copy and paste
 				navigator.clipboard.writeText(str);
 				this.$toast.show(`Copied to Clipboard`, { duration: 2000 });
 			},
-
-			// Curently unused...
-			// shuffle(array) {
-			// 	for (let i = array.length - 1; i > 0; i--) {
-			// 		let j = Math.floor(Math.random() * (i + 1)); // random index from 0 to i
-
-			// 		// swap elements array[i] and array[j]
-			// 		// we use "destructuring assignment" syntax to achieve that
-			// 		// same can be written as:
-			// 		// let t = array[i]; array[i] = array[j]; array[j] = t
-			// 		[array[i], array[j]] = [array[j], array[i]];
-			// 	}
-			// },
 		},
 	};
 </script>
@@ -203,10 +187,6 @@
 		display: flex;
 		text-align: left;
 		margin-bottom: 32px;
-		/* flex-wrap: wrap; */
-		/* flex: 1fr 3fr; */
-		/* justify-content: space-between;
-		align-self: center; */
 	}
 
 	.row .column:first-child {
@@ -215,7 +195,6 @@
 	}
 
 	.content {
-		/* margin: 0 60px; */
 		max-width: 1300px;
 		display: flex;
 		flex-direction: column;
@@ -228,7 +207,6 @@
 		cursor: pointer;
 		background-color: #00a2fd;
 		color: white;
-		/* border: none; */
 		border: 2px solid #00a2fd;
 		border-radius: 4px;
 		font-size: 24px;
@@ -248,7 +226,6 @@
 		border-radius: 4px;
 		font-size: 18px;
 		font-weight: 700;
-		/* box-shadow: 8px 8px 0 0 rgba(0, 48, 77, 0.05); */
 		padding: 8px 24px;
 		transition: all 0.2s ease;
 	}
