@@ -2,7 +2,7 @@
 	"name": "cheechies-kitchen",
 	"version": "0.1.0",
 	"private": true,
-	"homepage": "https://jtagliaferro74.github.io/",
+	"homepage": "https://jtagliaferro74.github.io/cheechies-kitchen",
 	"scripts": {
 		"serve": "vue-cli-service serve",
 		"build": "vue-cli-service build",
